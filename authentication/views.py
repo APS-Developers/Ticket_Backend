@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 
 from authentication.models import UserPermission
 # Create your views here.
@@ -32,7 +33,7 @@ def registerUser(request):
     context = {'form': form, 'permissions_form': permissions_form}
     return render(request, 'register.html', context)
 
-
+@never_cache
 def loginUser(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
@@ -58,16 +59,10 @@ def loginUser(request):
         return render(request, 'login.html', context)
 
 
+@never_cache
 @login_required(login_url='login')
 def dashboard(request):
     all_users = User.objects.all()
-    # all_users_permissions = UserPermission.objects.all()
-    # for i in range(len(all_users)):
-    #     key = all_users[i].id
-    #     all_users[i].CRM_permission = all_users_permissions[i].CRM_permission
-    #     all_users[i].Inventory_permission = all_users_permissions[i].Inventory_permission
-
-    # print(all_users[0].CRM_permission)
     context = {'all_users': all_users}
     return render(request, 'dashboard.html', context)
 
