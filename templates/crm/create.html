@@ -12,7 +12,11 @@
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
+                {% ifequal type 'Customer' %}
                 <input class="btn btn-success" type="submit" value="Check in AMC">
+                {% else %}
+                <input class="btn btn-success" type="submit" value="Submit">
+                {% endifequal %}     
             </form>
         </div>
     </div>

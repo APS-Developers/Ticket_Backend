@@ -5,7 +5,9 @@ from .forms import ProductForm, FaultForm, UpdateForm
 from customer.forms import CreateCustomerForm
 from .filters import TicketFilter
 from django.contrib import messages
-
+# from django.core.mail import EmailMessage
+# from django.conf import settings
+# from django.template.loader import render_to_string
 # Create your views here.
 
 
@@ -30,7 +32,6 @@ def customerDetails(request):
                 customerForm.save()
                 return redirect('/productDetails/' + str(customerForm.CustomerID))
             
-            
             return redirect('/productDetails/' + str(customer[0].CustomerID))
     context = {'form': form}
     return render(request, 'customer/create.html', context)
@@ -45,8 +46,12 @@ def productDetails(request, customerID):
             newTicket.Customer_id = customerID
             newTicket.Status = 'Open'
             newTicket.save()
+
+            # orgID = Customer.objects.get(CustomerID=customerID).customer.Organisation_id
+            # allProducts = list(Inventory.objects.values('SerialNo').distinct())
+            
             return redirect('/faultDetails/' + str(newTicket.TicketID))
-    context = {'form': form}
+    context = {'form': form, 'type': 'product'}
     return render(request, 'crm/create.html', context)
 
 
@@ -64,7 +69,7 @@ def faultDetails(request, ticketID):
             ticket.OnlineResolvable = fault.OnlineResolvable
             ticket.save()
             return redirect('showTickets')
-    context = {'form': form}
+    context = {'form': form, 'type': 'fault'}
     return render(request, 'crm/create.html', context)
 
 
@@ -103,7 +108,6 @@ def deleteTicket(request, ticketID):
 
 
     # show ticket ka nme se kia , int str se farak?
-    # update, autofill, contact vala, 
+    # autofill, contact vala, 
     # .models matlab sare models ?
-
     # org 
