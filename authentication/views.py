@@ -6,9 +6,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-
 from authentication.models import UserPermission
 # Create your views here.
+
 
 @login_required(login_url='login')
 def registerUser(request):
@@ -24,13 +24,13 @@ def registerUser(request):
             permissions = permissions_form.save(commit=False)
             permissions.user = user
             permissions.save()
-
             username = form.cleaned_data.get('username')
             messages.success(request, 'Account was created successfully for ' + username)
             return redirect('dashboard')
 
     context = {'form': form, 'permissions_form': permissions_form}
-    return render(request, 'register.html', context)
+    return render(request, 'authentication/register.html', context)
+
 
 @never_cache
 def loginUser(request):
@@ -41,11 +41,10 @@ def loginUser(request):
 
         if request.method == 'POST':
             form = AuthenticationForm(request, data=request.POST)
-            if form.is_valid():
 
+            if form.is_valid():
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
-
                 user = authenticate(username=username, password=password)
 
                 if user is not None:
@@ -55,7 +54,7 @@ def loginUser(request):
                     messages.info(request, "Username or Password is incorrect")
             
         context = {'form': form}
-        return render(request, 'login.html', context)
+        return render(request, 'authentication/login.html', context)
 
 
 @never_cache
@@ -63,12 +62,12 @@ def loginUser(request):
 def dashboard(request):
     all_users = User.objects.all()
     context = {'all_users': all_users}
-    return render(request, 'dashboard.html', context)
+    return render(request, 'authentication/dashboard.html', context)
 
 
 def logoutUser(request):
     logout(request)
-    return render(request, 'logout.html')
+    return render(request, 'authentication/logout.html')
 
 
 @login_required(login_url='login')
@@ -86,19 +85,21 @@ def updateUser(request, pk):
         if form.is_valid() and permissions_form.is_valid():
             user = form.save()
             permissions = permissions_form.save(commit=False)
-            permissions.user = user
+            permissions.user_id = user.id
             permissions.save()
             return redirect('dashboard')
 
     context = {'form': form, 'permissions_form': permissions_form}
-    return render(request, 'update.html', context)
+    return render(request, 'authentication/update.html', context)
 
 
 @login_required(login_url='login')
 def deleteUser(request, pk):
     user = User.objects.get(id=pk)
+
     if request.method == 'POST':
         user.delete()
         return redirect('dashboard')
+
     context = {'user': user}
-    return render(request, 'delete.html', context)
+    return render(request, 'authentication/delete.html', context)

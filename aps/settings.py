@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'authentication.apps.AuthenticationConfig',
     'crm.apps.CrmConfig',
-    'inventory.apps.InventoryConfig',
-    'django_filters',
+    'customer.apps.CustomerConfig',
+    'django_extensions',
+    'phonenumber_field',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'aps.urls'
-ROOT_URLCONF = 'inventory.urls'
 
 TEMPLATES = [
     {
@@ -130,9 +131,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -150,3 +148,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = 'acrckwldpjidcxko'
