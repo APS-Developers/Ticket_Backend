@@ -32,7 +32,7 @@ def upload_file(request):
                             Location=row[4],
                             Purchase_Date=None if not row[5] else row[5],
                             Item_dispatched_Date=None if not row[6] else row[6],
-                            OrgId=row[7],
+                            OrgID=row[7],
                             Status=row[8],
                             Slip=row[9])
                     inv.save()
