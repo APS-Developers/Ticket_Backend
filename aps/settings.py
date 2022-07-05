@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'authentication.apps.AuthenticationConfig',
-    'crm.apps.CrmConfig'
+    'crm.apps.CrmConfig',
+    'inventory.apps.InventoryConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'aps.urls'
+ROOT_URLCONF = 'inventory.urls'
 
 TEMPLATES = [
     {
@@ -127,6 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
