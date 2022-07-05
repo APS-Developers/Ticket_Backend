@@ -1,7 +1,7 @@
 from django.db import models
 from .validators import validate_file_extension
 from datetime import datetime
-from customer.models import Organization
+#from customer.models import Organization
 
 class Inventory(models.Model):
     class Meta:
@@ -19,7 +19,8 @@ class Inventory(models.Model):
     Location=models.TextField()
     Purchase_Date=models.DateField(default=datetime.now,null=True)
     Item_dispatched_Date=models.DateField(null=True)
-    OrgID=models.ForeignKey(Organization, on_delete=models.CASCADE)
+    #OrgID=models.ForeignKey(Organization, on_delete=models.CASCADE)
+    OrgID=models.TextField(null=True)
     Status=models.CharField(choices=StatusChoice,max_length=20,blank=True,null=True)
     Slip=models.FileField(upload_to="", validators=[validate_file_extension],null=True)
 

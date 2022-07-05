@@ -19,7 +19,7 @@ class Form(forms.ModelForm):
             'Location',
             'Purchase_Date',
             'Item_dispatched_Date',
-            'OrgId',
+            'OrgID',
             'Status',
             'Slip',
         ]

@@ -4,8 +4,10 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from .models import Inventory
 from .forms import Form
 from .forms import CsvsModelForm
+from .filter1 import InventoryFilter
 from .models import Csvs 
 from datetime import datetime
+
 
 import csv
 from django.contrib.auth.models import User
@@ -68,6 +70,15 @@ def update_view(request,pk):
 
 	context = {'form':form}
 	return render(request, 'create_view.html', context)
+
+def showInventory(request):
+    all_inventory = Inventory.objects.all()
+    Inven_filter = InventoryFilter(request.GET, queryset=all_inventory)
+    all_inventory=Inven_filter.qs 
+    context = {'inventories': all_inventory, 'filter': Inven_filter}
+    return render(request,'inven_show.html', context)
+
+
 
 def deleteOrder(request, pk):
 	order = Order.objects.get(id=pk)

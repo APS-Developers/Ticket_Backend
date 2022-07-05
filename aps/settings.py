@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'authentication.apps.AuthenticationConfig',
     'crm.apps.CrmConfig',
-    'inventory.apps.InventoryConfig'
+    'inventory.apps.InventoryConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
