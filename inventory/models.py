@@ -17,12 +17,12 @@ class Inventory(models.Model):
     Serial_Number=models.TextField(primary_key=True)
     Item=models.CharField(max_length=50)
     Location=models.TextField()
-    Purchase_Date=models.DateField(default=datetime.now,null=True)
-    Item_dispatched_Date=models.DateField(null=True)
+    Purchase_Date=models.DateField(null=True,blank=True)
+    Item_dispatched_Date=models.DateField(null=True,blank=True)
     OrgID=models.ForeignKey(Organization, on_delete=models.CASCADE)
     #OrgID=models.TextField(null=True)
     Status=models.CharField(choices=StatusChoice,max_length=20,blank=True,null=True)
-    Slip=models.FileField(upload_to="", validators=[validate_file_extension],null=True)
+    Slip=models.FileField(upload_to="", validators=[validate_file_extension],null=True,blank=True)
 
     def __str__(self):
         return self.Serial_Number

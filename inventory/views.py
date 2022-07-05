@@ -80,13 +80,13 @@ def showInventory(request):
 
 
 
-def deleteOrder(request, pk):
-	order = Order.objects.get(id=pk)
+def deleteInventory(request, pk):
+	inventory = Inventory.objects.get(Serial_Number=pk)
 	if request.method == "POST":
-		order.delete()
+		inventory.delete()
 		return redirect('/')
 
-	context = {'item':order}
+	context = {'item':inventory}
 	return render(request, 'create_view.html', context)
     
 
